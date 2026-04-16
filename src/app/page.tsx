@@ -4,9 +4,10 @@ import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Projects from "@/components/Projects";
 import About from "@/components/About";
-import Experience from "@/components/Experience";
+import Expertise from "@/components/Expertise";
 import Motivation from "@/components/Motivation";
-import FavoriteTools from "@/components/FavoriteTools";
+import Experience from "@/components/Experience";
+import FavouriteStack from "@/components/FavoriteTools";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
@@ -22,9 +23,10 @@ export default function Home() {
         <Hero />
         <Projects />
         <About />
-        <Experience />
+        <Expertise />
         <Motivation />
-        <FavoriteTools />
+        <Experience />
+        <FavouriteStack />
         <Contact />
       </main>
       <Footer />
