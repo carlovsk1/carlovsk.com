@@ -36,14 +36,17 @@ export default function Projects() {
   }, [prefersReducedMotion]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="work"
-      className="px-6 md:px-12 lg:px-20 py-24"
-    >
-      <h2 className="text-sm uppercase tracking-widest text-muted mb-12">
-        Selected Work
-      </h2>
+    <section ref={sectionRef} id="work" className="px-6 md:px-12 lg:px-20 py-24">
+      <div className="mb-16">
+        <p className="text-sm uppercase tracking-widest text-muted">Featured</p>
+        <h2 className="mt-2 text-5xl md:text-7xl font-bold">Work</h2>
+        <p className="mt-6 max-w-2xl text-base text-muted leading-relaxed">
+          My creative spirit comes alive in the digital realm. With a sharp eye for
+          logic and design, I shape seamless user experiences using visual tools and
+          dynamic workflows. In Bubble, I build, connect, and launch, turning raw
+          ideas into fully functional products.
+        </p>
+      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
@@ -65,23 +68,26 @@ export default function Projects() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
             <div className="absolute bottom-0 left-0 right-0 p-6">
-              <div className="flex items-center gap-3 mb-2">
-                <span className="text-xs text-muted uppercase tracking-wider">
-                  {project.year}
-                </span>
+              <div className="flex items-center gap-3 mb-2 flex-wrap">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="text-xs text-muted/70 uppercase tracking-wider"
+                    className="text-xs text-muted/80 uppercase tracking-wider"
                   >
                     {tag}
                   </span>
                 ))}
+                <span className="text-xs text-muted/60">|</span>
+                <span className="text-xs text-muted/80">{project.year}</span>
               </div>
               <h3 className="text-xl md:text-2xl font-semibold">
                 {project.title}
+                {"badge" in project && project.badge && (
+                  <span className="ml-2 text-sm font-normal text-muted">
+                    [{project.badge}]
+                  </span>
+                )}
               </h3>
-              <p className="text-sm text-muted mt-1">{project.description}</p>
             </div>
           </a>
         ))}

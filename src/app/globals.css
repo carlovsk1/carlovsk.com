@@ -6,7 +6,7 @@
   --color-muted: #999;
   --color-accent: #6366f1;
   --color-border: #333;
-  --font-sans: var(--font-space-grotesk);
+  --font-sans: var(--font-inter);
 }
 
 * {

@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Contact() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
@@ -26,10 +26,7 @@ export default function Contact() {
         opacity: 0,
         duration: 1,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: headingRef.current, start: "top 80%" },
       });
 
       gsap.from(contentRef.current, {
@@ -38,10 +35,7 @@ export default function Contact() {
         duration: 0.8,
         delay: 0.2,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: contentRef.current,
-          start: "top 85%",
-        },
+        scrollTrigger: { trigger: contentRef.current, start: "top 85%" },
       });
     }, sectionRef);
 
@@ -54,55 +48,28 @@ export default function Contact() {
       id="contact"
       className="px-6 md:px-12 lg:px-20 py-32 text-center"
     >
-      <h2
-        ref={headingRef}
-        className="text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-tight opacity-0"
-      >
-        Let&apos;s Work
-        <br />
-        Together
-      </h2>
+      <div ref={headingRef} className="opacity-0">
+        <p className="text-sm uppercase tracking-widest text-muted">
+          Let&apos;s Work
+        </p>
+        <h2 className="mt-2 text-6xl md:text-8xl lg:text-9xl font-bold uppercase">
+          Together
+        </h2>
+      </div>
 
-      <div ref={contentRef} className="opacity-0">
+      <div ref={contentRef} className="mt-12 opacity-0">
+        <p className="mx-auto max-w-2xl text-sm uppercase tracking-wider text-muted leading-relaxed">
+          Based in Brazil, I am an innovative Bubble Developer and entrepreneur.
+          My passion for intuitive user experiences, elegant solutions, and
+          simplifying complex processes is evident in my work.
+        </p>
+
         <a
           href="mailto:carlovsk.edits@gmail.com"
-          className="inline-block mt-12 text-sm uppercase tracking-widest border border-foreground/30 px-8 py-4 rounded-full hover:bg-foreground hover:text-background transition-colors duration-300"
+          className="mt-10 inline-block rounded-full border border-foreground/30 px-8 py-4 text-xs font-medium uppercase tracking-widest transition-colors duration-300 hover:bg-foreground hover:text-background"
         >
-          Get in touch
+          Contact Now
         </a>
-
-        <div className="flex justify-center gap-8 mt-12">
-          <a
-            href="mailto:carlovsk.edits@gmail.com"
-            className="text-sm text-muted hover:text-foreground transition-colors"
-          >
-            Email
-          </a>
-          <a
-            href="https://linkedin.com/in/carlovsk/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-muted hover:text-foreground transition-colors"
-          >
-            LinkedIn
-          </a>
-          <a
-            href="https://instagram.com/1carlovsk/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-muted hover:text-foreground transition-colors"
-          >
-            Instagram
-          </a>
-          <a
-            href="https://github.com/carlovsk"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-sm text-muted hover:text-foreground transition-colors"
-          >
-            GitHub
-          </a>
-        </div>
       </div>
     </section>
   );

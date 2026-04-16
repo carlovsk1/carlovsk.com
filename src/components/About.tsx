@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
-  const headingRef = useRef<HTMLHeadingElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
@@ -22,10 +22,7 @@ export default function About() {
         opacity: 0,
         duration: 0.8,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: headingRef.current, start: "top 80%" },
       });
 
       gsap.from(textRef.current, {
@@ -33,10 +30,7 @@ export default function About() {
         opacity: 0,
         duration: 0.8,
         ease: "power3.out",
-        scrollTrigger: {
-          trigger: textRef.current,
-          start: "top 80%",
-        },
+        scrollTrigger: { trigger: textRef.current, start: "top 80%" },
       });
     }, sectionRef);
 
@@ -44,49 +38,35 @@ export default function About() {
   }, [prefersReducedMotion]);
 
   return (
-    <section
-      ref={sectionRef}
-      id="about"
-      className="px-6 md:px-12 lg:px-20 py-24"
-    >
-      <h2
-        ref={headingRef}
-        className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase leading-tight"
-      >
-        More About
-        <br />
-        Carlovsk
-      </h2>
+    <section ref={sectionRef} id="about" className="px-6 md:px-12 lg:px-20 py-24">
+      <div ref={headingRef}>
+        <p className="text-sm uppercase tracking-widest text-muted">More About</p>
+        <h2 className="mt-2 text-5xl md:text-7xl font-bold">
+          carlovsk<span className="text-muted">&copy;</span>
+        </h2>
+      </div>
 
-      <div
-        ref={textRef}
-        className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-8"
-      >
-        <div className="md:col-span-4">
-          <p className="text-sm uppercase tracking-widest text-muted">
-            Who I Am
-          </p>
-        </div>
-
-        <div className="md:col-span-8 space-y-6">
-          <p className="text-lg md:text-xl leading-relaxed text-foreground/90">
-            I&apos;m a software engineer from Porto Seguro, Brazil, passionate
-            about building digital products that solve real problems. With years
-            of experience spanning no-code platforms, full-stack development, and
-            AI integration, I bring ideas to life through clean, functional
-            design.
-          </p>
-          <p className="text-lg md:text-xl leading-relaxed text-foreground/90">
-            My journey started as a video editor, evolved through
-            e-commerce and info products, and led me to software engineering
-            where I found my true calling — creating tools that empower people.
+      <div ref={textRef} className="mt-12 grid grid-cols-1 md:grid-cols-12 gap-8">
+        <div className="md:col-span-8 md:col-start-5">
+          <p className="text-base md:text-lg leading-relaxed text-foreground/80">
+            Carlos Henrique, professionally known as carlovsk, is a passionate Bubble
+            Developer with a strong background in building dynamic, user-friendly web
+            applications. Driven by innovation and efficiency, carlovsk excels in
+            turning complex ideas into simple, functional digital solutions. He started
+            his career at age 12 as a video editor, ventured into digital marketing
+            selling info-products, and successfully managed three dropshipping
+            e-commerce stores. A natural entrepreneur, he constantly seeks to create
+            valuable solutions for others, leading him to discover and specialize in the
+            NoCode platform Bubble.
           </p>
 
           <a
-            href="#contact"
-            className="inline-block mt-4 text-sm uppercase tracking-widest border border-foreground/30 px-6 py-3 rounded-full hover:bg-foreground hover:text-background transition-colors duration-300"
+            href="https://drive.google.com/file/d/1K9hDVy3nky5zg8f_GgjPVR1ZQOQgku55/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-8 inline-block rounded-full border border-foreground/30 px-6 py-3 text-xs font-medium uppercase tracking-widest transition-colors duration-300 hover:bg-foreground hover:text-background"
           >
-            Let&apos;s talk
+            Download Resume
           </a>
         </div>
       </div>

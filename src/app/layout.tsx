@@ -1,22 +1,22 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["300", "400", "500", "600", "700", "800"],
 });
 
 export const metadata: Metadata = {
-  title: "carlovsk — Software Engineer",
+  title: "CARLOVSK - PORTFOLIO",
   description:
-    "Carlos Henrique — Software Engineer based in Porto Seguro, Brazil. Building digital experiences with code.",
+    "Senior Bubble Developer Carlos Henrique (aka carlovsk) crafts AI-powered SaaS, Supabase back-ends, Stripe integrations & PropTech solutions. Explore his portfolio.",
   metadataBase: new URL("https://carlovsk.com"),
   openGraph: {
-    title: "carlovsk — Software Engineer",
+    title: "CARLOVSK - PORTFOLIO",
     description:
-      "Carlos Henrique — Software Engineer based in Porto Seguro, Brazil. Building digital experiences with code.",
+      "Senior Bubble Developer Carlos Henrique (aka carlovsk) crafts AI-powered SaaS, Supabase back-ends, Stripe integrations & PropTech solutions. Explore his portfolio.",
     url: "https://carlovsk.com",
     siteName: "carlovsk",
     locale: "en_US",
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "carlovsk — Software Engineer",
+    title: "CARLOVSK - PORTFOLIO",
     description:
-      "Carlos Henrique — Software Engineer based in Porto Seguro, Brazil. Building digital experiences with code.",
+      "Senior Bubble Developer Carlos Henrique (aka carlovsk) crafts AI-powered SaaS, Supabase back-ends, Stripe integrations & PropTech solutions. Explore his portfolio.",
   },
 };
 
@@ -36,7 +36,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} antialiased`}>
+    <html lang="en" className={`${inter.variable} antialiased`}>
       <body>{children}</body>
     </html>
   );
