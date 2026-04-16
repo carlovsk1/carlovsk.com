@@ -6,6 +6,7 @@ export const projects = [
     year: "2025",
     users: "20,000+",
     url: "https://aros.app",
+    image: "/images/projects/aros.webp",
   },
   {
     title: "Hello Maia",
@@ -13,6 +14,7 @@ export const projects = [
     tags: ["Bubble", "Supabase", "n8n"],
     year: "2025",
     url: "https://hellomaia.com.br",
+    image: "/images/projects/hello-maia.webp",
   },
   {
     title: "Fynance",
@@ -20,6 +22,7 @@ export const projects = [
     tags: ["Bubble"],
     year: "2025",
     url: "https://fynance.com.br",
+    image: "/images/projects/fynance.webp",
   },
   {
     title: "Eu Na Europa",
@@ -27,6 +30,7 @@ export const projects = [
     tags: ["Bubble", "Supabase"],
     year: "2024",
     url: "https://eunaeuropa.com",
+    image: "/images/projects/eu-na-europa.webp",
   },
   {
     title: "FixaAi",
@@ -34,6 +38,7 @@ export const projects = [
     tags: ["Bubble", "OpenAI"],
     year: "2024",
     url: "https://fixaai.com",
+    image: "/images/projects/fixaai.webp",
   },
   {
     title: "Vetzco",
@@ -41,6 +46,7 @@ export const projects = [
     tags: ["Bubble", "MongoDB"],
     year: "2024",
     url: "https://vetzco.com",
+    image: "/images/projects/vetzco.webp",
   },
   {
     title: "Mult Resorts",
@@ -48,6 +54,7 @@ export const projects = [
     tags: ["Bubble"],
     year: "2023",
     url: "https://multresorts.com.br",
+    image: "/images/projects/mult-resorts.webp",
   },
 ];
 
@@ -82,4 +89,16 @@ export const experience = [
     company: "Self-employed",
     period: "2018 — 2020",
   },
+];
+
+export const tools = [
+  { name: "React", icon: "/images/tools/react.svg" },
+  { name: "Next.js", icon: "/images/tools/nextjs.svg" },
+  { name: "TypeScript", icon: "/images/tools/typescript.svg" },
+  { name: "Tailwind CSS", icon: "/images/tools/tailwind.svg" },
+  { name: "Figma", icon: "/images/tools/figma.svg" },
+  { name: "Supabase", icon: "/images/tools/supabase.svg" },
+  { name: "Bubble", icon: "/images/tools/bubble.svg" },
+  { name: "n8n", icon: "/images/tools/n8n.svg" },
+  { name: "OpenAI", icon: "/images/tools/openai.svg" },
 ];
