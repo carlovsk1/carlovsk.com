@@ -55,24 +55,11 @@ html.lenis body {
   overflow: hidden;
 }
 
-/* Marquee animation */
-@keyframes marquee {
-  0% {
-    transform: translateX(0%);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee {
-  animation: marquee 20s linear infinite;
-}
-
 /* Respect reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
-  .marquee {
-    animation: none;
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
   }
 }
 
