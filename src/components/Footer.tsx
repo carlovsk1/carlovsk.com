@@ -7,7 +7,7 @@ export default function Footer() {
 
       <div className="mt-12 flex flex-col items-center gap-6 md:flex-row md:justify-between">
         <p className="text-xs uppercase tracking-wider text-muted">
-          &copy;2025 Carlovsk Studios
+          &copy;{new Date().getFullYear()} Carlovsk Studios
         </p>
 
         <div className="flex items-center gap-6">

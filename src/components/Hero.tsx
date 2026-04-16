@@ -61,7 +61,7 @@ export default function Hero() {
           ref={locationRef}
           className="text-xs uppercase tracking-widest text-muted opacity-0"
         >
-          Based in BR, Porto Seguro BA
+          Based in Brazil
         </p>
 
         <p ref={roleRef} className="opacity-0">
@@ -69,7 +69,7 @@ export default function Hero() {
             href="#work"
             className="text-sm font-medium underline underline-offset-4 decoration-muted hover:decoration-foreground transition-colors"
           >
-            Bubble Developer
+            Software Engineer
           </a>
         </p>
       </div>
