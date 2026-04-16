@@ -27,8 +27,8 @@ export default function Header() {
       className="fixed top-0 left-0 z-50 flex w-full items-center justify-between px-8 py-6 mix-blend-difference md:px-12"
       style={{ opacity: 0 }}
     >
-      <a href="#" className="text-sm font-medium uppercase tracking-widest">
-        carlovsk
+      <a href="#" className="text-sm font-bold uppercase tracking-widest">
+        Carlovsk
       </a>
       <nav className="flex items-center gap-6 md:gap-8">
         {["Work", "About", "Contact"].map((item) => (

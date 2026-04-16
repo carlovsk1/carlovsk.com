@@ -2,10 +2,13 @@
 
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import Intro from "@/components/Intro";
 import Projects from "@/components/Projects";
-import Journey from "@/components/Journey";
+import About from "@/components/About";
+import Experience from "@/components/Experience";
+import Motivation from "@/components/Motivation";
+import FavoriteTools from "@/components/FavoriteTools";
 import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 import CustomCursor from "@/components/CustomCursor";
 import SmoothScroll from "@/components/SmoothScroll";
 
@@ -17,11 +20,14 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
-        <Intro />
         <Projects />
-        <Journey />
+        <About />
+        <Experience />
+        <Motivation />
+        <FavoriteTools />
         <Contact />
       </main>
+      <Footer />
     </>
   );
 }
