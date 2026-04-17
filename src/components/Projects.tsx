@@ -38,19 +38,30 @@ export default function Projects() {
   }, [prefersReducedMotion]);
 
   return (
-    <section ref={sectionRef} id="work" className="px-6 md:px-12 lg:px-20 py-24">
-      <div className="mb-16">
-        <p className="text-sm uppercase tracking-widest text-muted">Featured</p>
-        <h2 className="mt-2 text-5xl md:text-7xl font-bold">Work</h2>
-        <p className="mt-6 max-w-2xl text-base text-muted leading-relaxed">
-          My creative spirit comes alive in the digital realm. With a sharp eye for
-          logic and design, I shape seamless user experiences using visual tools and
-          dynamic workflows. In Bubble, I build, connect, and launch, turning raw
-          ideas into fully functional products.
+    <section
+      ref={sectionRef}
+      id="work"
+      className="px-6 md:px-10 py-24 md:py-40"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-16 md:mb-24 items-end">
+        <h2
+          className="font-black uppercase leading-[0.85] tracking-[-0.04em]"
+          style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
+        >
+          Featured
+          <br />
+          Work
+        </h2>
+
+        <p className="text-base md:text-lg leading-relaxed text-muted-strong">
+          My creative spirit comes alive in the digital realm. With a sharp eye
+          for logic and design, I shape seamless user experiences using visual
+          tools and dynamic workflows. In Bubble, I build, connect, and launch,
+          turning raw ideas into fully functional products.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {projects.map((project) => (
           <ProjectCard key={project.title} project={project} />
         ))}
@@ -60,42 +71,37 @@ export default function Projects() {
 }
 
 function ProjectCard({ project }: { project: Project }) {
-  const cardClasses =
-    "project-card group relative block overflow-hidden rounded-xl bg-[#222] aspect-[4/3] transition-transform duration-300 hover:scale-[1.02]";
+  const cardClasses = "project-card group block";
 
   const inner = (
     <>
-      <Image
-        src={project.image}
-        alt={project.title}
-        fill
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
-        sizes="(max-width: 768px) 100vw, 50vw"
-      />
+      <div className="relative aspect-[4/3] overflow-hidden rounded-sm bg-surface">
+        <Image
+          src={project.image}
+          alt={project.title}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+          sizes="(max-width: 768px) 100vw, 50vw"
+        />
+      </div>
 
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-      <div className="absolute bottom-0 left-0 right-0 p-6">
-        <div className="flex items-center gap-3 mb-2 flex-wrap">
-          {project.tags.map((tag) => (
-            <span
-              key={tag}
-              className="text-xs text-muted/80 uppercase tracking-wider"
-            >
-              {tag}
-            </span>
-          ))}
-          <span className="text-xs text-muted/60">|</span>
-          <span className="text-xs text-muted/80">{project.year}</span>
+      <div className="mt-4 flex items-end justify-between gap-4">
+        <div className="flex flex-col gap-1">
+          <h3 className="text-sm md:text-base font-semibold uppercase tracking-wider">
+            {project.title}
+            {project.badge && (
+              <span className="ml-2 text-xs font-normal normal-case text-muted">
+                [{project.badge}]
+              </span>
+            )}
+          </h3>
+          <p className="text-[11px] uppercase tracking-[0.2em] text-muted">
+            {project.tags.join(" + ")}
+          </p>
         </div>
-        <h3 className="text-xl md:text-2xl font-semibold">
-          {project.title}
-          {project.badge && (
-            <span className="ml-2 text-sm font-normal text-muted">
-              [{project.badge}]
-            </span>
-          )}
-        </h3>
+        <span className="text-[11px] uppercase tracking-[0.2em] text-muted shrink-0">
+          {project.year}
+        </span>
       </div>
     </>
   );
