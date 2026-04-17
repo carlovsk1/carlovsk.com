@@ -46,7 +46,7 @@ export default function Projects() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 mb-16 md:mb-24 items-end">
         <h2
           className="font-black uppercase leading-[0.85] tracking-[-0.04em]"
-          style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
+          style={{ fontSize: "clamp(2.5rem, 10vw, 9rem)" }}
         >
           Featured
           <br />

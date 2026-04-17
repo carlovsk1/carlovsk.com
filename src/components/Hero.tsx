@@ -61,7 +61,7 @@ export default function Hero() {
         <h1
           ref={nameRef}
           className="text-center font-black uppercase leading-[0.85] tracking-[-0.04em] opacity-0"
-          style={{ fontSize: "clamp(5rem, 14vw, 12rem)" }}
+          style={{ fontSize: "clamp(3rem, 15vw, 12rem)" }}
         >
           Carlovsk
         </h1>
@@ -69,13 +69,13 @@ export default function Hero() {
 
       <div
         ref={metaRef}
-        className="mt-12 grid grid-cols-3 border-t border-border pt-5 text-[11px] uppercase tracking-[0.2em] text-muted opacity-0"
+        className="mt-10 md:mt-12 flex flex-col gap-2 border-t border-border pt-5 text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-muted opacity-0 md:flex-row md:items-center md:justify-between"
       >
-        <p className="text-left">Based in BR, Porto Seguro BA</p>
-        <p className="text-center" aria-hidden>
+        <p>Based in BR, Porto Seguro BA</p>
+        <p className="hidden md:block" aria-hidden>
           ●
         </p>
-        <p className="text-right">Bubble Developer</p>
+        <p>Bubble Developer</p>
       </div>
     </section>
   );
