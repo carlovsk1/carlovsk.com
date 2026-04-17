@@ -2,9 +2,11 @@
 
 import { useEffect, useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { projects } from "@/lib/data";
+import { projects, type Project } from "@/lib/data";
+import { isPublished } from "@/lib/projects";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -50,48 +52,70 @@ export default function Projects() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {projects.map((project) => (
-          <a
-            key={project.title}
-            href={project.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="project-card group relative block overflow-hidden rounded-xl bg-[#222] aspect-[4/3] transition-transform duration-300 hover:scale-[1.02]"
-          >
-            <Image
-              src={project.image}
-              alt={project.title}
-              fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-
-            <div className="absolute bottom-0 left-0 right-0 p-6">
-              <div className="flex items-center gap-3 mb-2 flex-wrap">
-                {project.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs text-muted/80 uppercase tracking-wider"
-                  >
-                    {tag}
-                  </span>
-                ))}
-                <span className="text-xs text-muted/60">|</span>
-                <span className="text-xs text-muted/80">{project.year}</span>
-              </div>
-              <h3 className="text-xl md:text-2xl font-semibold">
-                {project.title}
-                {"badge" in project && project.badge && (
-                  <span className="ml-2 text-sm font-normal text-muted">
-                    [{project.badge}]
-                  </span>
-                )}
-              </h3>
-            </div>
-          </a>
+          <ProjectCard key={project.title} project={project} />
         ))}
       </div>
     </section>
+  );
+}
+
+function ProjectCard({ project }: { project: Project }) {
+  const cardClasses =
+    "project-card group relative block overflow-hidden rounded-xl bg-[#222] aspect-[4/3] transition-transform duration-300 hover:scale-[1.02]";
+
+  const inner = (
+    <>
+      <Image
+        src={project.image}
+        alt={project.title}
+        fill
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        sizes="(max-width: 768px) 100vw, 50vw"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+      <div className="absolute bottom-0 left-0 right-0 p-6">
+        <div className="flex items-center gap-3 mb-2 flex-wrap">
+          {project.tags.map((tag) => (
+            <span
+              key={tag}
+              className="text-xs text-muted/80 uppercase tracking-wider"
+            >
+              {tag}
+            </span>
+          ))}
+          <span className="text-xs text-muted/60">|</span>
+          <span className="text-xs text-muted/80">{project.year}</span>
+        </div>
+        <h3 className="text-xl md:text-2xl font-semibold">
+          {project.title}
+          {project.badge && (
+            <span className="ml-2 text-sm font-normal text-muted">
+              [{project.badge}]
+            </span>
+          )}
+        </h3>
+      </div>
+    </>
+  );
+
+  if (isPublished(project)) {
+    return (
+      <Link href={`/p/${project.slug}`} className={cardClasses}>
+        {inner}
+      </Link>
+    );
+  }
+
+  return (
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cardClasses}
+    >
+      {inner}
+    </a>
   );
 }
