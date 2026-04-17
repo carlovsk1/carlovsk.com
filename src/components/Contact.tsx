@@ -46,7 +46,7 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="px-6 md:px-10 py-24 md:py-40 text-center"
+      className="px-6 md:px-10 py-16 md:py-24 text-center"
     >
       <div ref={headingRef} className="opacity-0">
         <h2
