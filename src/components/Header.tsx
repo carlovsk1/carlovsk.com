@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { useReducedMotion } from "@/lib/use-reduced-motion";
 
@@ -46,9 +47,9 @@ export default function Header() {
       className="fixed top-0 left-0 z-50 flex w-full items-center justify-between px-6 py-4 md:px-12"
       style={{ opacity: 0 }}
     >
-      <a href="#" className="text-sm font-semibold uppercase tracking-wider">
+      <Link href="/" className="text-sm font-semibold uppercase tracking-wider">
         Carlovsk/
-      </a>
+      </Link>
 
       <div className="flex items-center gap-4 md:gap-6">
         <span className="hidden text-xs text-muted md:block" suppressHydrationWarning>
