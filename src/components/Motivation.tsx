@@ -29,19 +29,22 @@ export default function Motivation() {
   }, [prefersReducedMotion]);
 
   return (
-    <section ref={sectionRef} className="px-6 md:px-12 lg:px-20 py-24">
-      <h2 className="text-sm uppercase tracking-widest text-muted mb-8">
-        Motivation
-      </h2>
+    <section ref={sectionRef} className="px-6 md:px-10 py-24 md:py-32">
+      <div
+        ref={textRef}
+        className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start"
+      >
+        <h2 className="text-2xl md:text-4xl font-black uppercase tracking-[-0.02em]">
+          Motivation
+        </h2>
 
-      <div ref={textRef} className="max-w-3xl">
-        <p className="text-lg md:text-xl leading-relaxed text-foreground/80">
-          carlovsk is motivated by the endless possibilities of technology and its
-          power to simplify lives. He thrives on solving challenging problems and is
-          continually inspired by seeing the positive impact his solutions have on
-          users and businesses alike. Committed to lifelong learning and professional
-          growth, he embraces every new challenge as an opportunity to innovate and
-          excel.
+        <p className="text-base md:text-lg leading-relaxed text-muted-strong">
+          carlovsk is motivated by the endless possibilities of technology and
+          its power to simplify lives. He thrives on solving challenging
+          problems and is continually inspired by seeing the positive impact
+          his solutions have on users and businesses alike. Committed to
+          lifelong learning and professional growth, he embraces every new
+          challenge as an opportunity to innovate and excel.
         </p>
       </div>
     </section>
