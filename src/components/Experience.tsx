@@ -32,29 +32,32 @@ export default function Experience() {
   }, [prefersReducedMotion]);
 
   return (
-    <section ref={sectionRef} className="px-6 md:px-12 lg:px-20 py-24">
-      <h2 className="text-sm uppercase tracking-widest text-muted mb-16">
+    <section ref={sectionRef} className="px-6 md:px-10 py-24 md:py-40">
+      <h2
+        className="mb-12 md:mb-16 font-black uppercase tracking-[-0.02em]"
+        style={{ fontSize: "clamp(2rem, 4vw, 3rem)" }}
+      >
         Experience
       </h2>
 
-      <div className="space-y-0 border-t border-border">
+      <div className="border-t border-border">
         {experience.map((exp) => (
           <div
             key={`${exp.company}-${exp.period}`}
-            className="exp-item group border-b border-border py-8 hover:bg-white/5 transition-colors duration-300 px-4 -mx-4"
+            className="exp-item border-b border-border py-6 md:py-8"
           >
-            <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
-              <div className="flex-1">
-                <p className="text-xs uppercase tracking-wider text-muted">
-                  {exp.company}
-                </p>
-                <h3 className="mt-1 text-xl md:text-2xl font-semibold uppercase">
-                  {exp.role}
-                </h3>
-              </div>
-              <p className="text-sm text-muted shrink-0">{exp.period}</p>
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-3 md:gap-6 md:items-baseline">
+              <h3 className="md:col-span-4 text-base md:text-lg font-semibold uppercase tracking-wider">
+                {exp.company}
+              </h3>
+              <p className="md:col-span-5 text-[11px] uppercase tracking-[0.2em] text-muted-strong">
+                {exp.role}
+              </p>
+              <p className="md:col-span-3 text-[11px] uppercase tracking-[0.2em] text-muted md:text-right">
+                {exp.period}
+              </p>
             </div>
-            <p className="mt-3 text-sm text-muted/80 max-w-2xl leading-relaxed">
+            <p className="mt-3 md:mt-4 md:ml-[33%] text-sm text-muted-strong max-w-2xl leading-relaxed">
               {exp.description}
             </p>
           </div>
