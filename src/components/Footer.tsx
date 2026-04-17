@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="px-6 md:px-10 pt-16 md:pt-20 overflow-hidden">
+    <footer className="px-6 md:px-10 pt-10 md:pt-12 overflow-hidden">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10 border-b border-border">
         <p className="text-[11px] uppercase tracking-[0.2em] text-muted-strong leading-relaxed max-w-md">
           Based in Brazil, I am an innovative Bubble Developer and entrepreneur.
@@ -42,7 +42,7 @@ export default function Footer() {
 
       <div
         aria-hidden
-        className="mt-12 flex items-start justify-center overflow-hidden"
+        className="mt-8 flex items-start justify-center overflow-hidden"
         style={{ height: "calc(14vw * 0.75)" }}
       >
         <p
