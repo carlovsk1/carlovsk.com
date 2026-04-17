@@ -46,27 +46,23 @@ export default function Contact() {
     <section
       ref={sectionRef}
       id="contact"
-      className="px-6 md:px-12 lg:px-20 py-32 text-center"
+      className="px-6 md:px-10 py-24 md:py-40 text-center"
     >
       <div ref={headingRef} className="opacity-0">
-        <p className="text-sm uppercase tracking-widest text-muted">
-          Let&apos;s Work
-        </p>
-        <h2 className="mt-2 text-6xl md:text-8xl lg:text-9xl font-bold uppercase">
+        <h2
+          className="font-black uppercase leading-[0.85] tracking-[-0.04em]"
+          style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
+        >
+          Let&apos;s work
+          <br />
           Together
         </h2>
       </div>
 
       <div ref={contentRef} className="mt-12 opacity-0">
-        <p className="mx-auto max-w-2xl text-sm uppercase tracking-wider text-muted leading-relaxed">
-          Based in Brazil, I am an innovative Bubble Developer and entrepreneur.
-          My passion for intuitive user experiences, elegant solutions, and
-          simplifying complex processes is evident in my work.
-        </p>
-
         <a
           href="mailto:carlovsk.edits@gmail.com"
-          className="mt-10 inline-block rounded-full border border-foreground/30 px-8 py-4 text-xs font-medium uppercase tracking-widest transition-colors duration-300 hover:bg-foreground hover:text-background"
+          className="inline-block rounded-full border border-border px-6 py-3 text-[11px] font-medium uppercase tracking-[0.2em] transition-colors duration-300 hover:bg-foreground hover:text-background"
         >
           Contact Now
         </a>
