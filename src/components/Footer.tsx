@@ -1,41 +1,52 @@
 export default function Footer() {
   return (
-    <footer className="px-6 md:px-12 lg:px-20 pb-12 pt-8">
-      <p className="text-[14vw] md:text-[11vw] font-bold uppercase leading-none tracking-tighter text-foreground/10 select-none text-center">
-        Carlovsk
-      </p>
-
-      <div className="mt-12 flex flex-col items-center gap-6 md:flex-row md:justify-between">
-        <p className="text-xs uppercase tracking-wider text-muted">
-          &copy;{new Date().getFullYear()} Carlovsk Studios
+    <footer className="px-6 md:px-10 pt-16 md:pt-20 overflow-hidden">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-10 border-b border-border">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-muted-strong leading-relaxed max-w-md">
+          Based in Brazil, I am an innovative Bubble Developer and entrepreneur.
+          My passion for intuitive user experiences, elegant solutions, and
+          simplifying complex processes is evident in my work.
         </p>
 
-        <div className="flex items-center gap-6">
+        <div className="flex items-start gap-6 md:justify-end">
           <a
             href="https://www.instagram.com/1carlovsk/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs uppercase tracking-wider text-muted hover:text-foreground transition-colors"
+            className="text-[11px] uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors"
           >
-            Instagram
+            Instagram ↗
           </a>
           <a
             href="https://www.linkedin.com/in/carlovsk/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-xs uppercase tracking-wider text-muted hover:text-foreground transition-colors"
+            className="text-[11px] uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors"
           >
-            LinkedIn
+            LinkedIn ↗
           </a>
         </div>
+      </div>
 
+      <div className="pt-10 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <p className="text-[11px] uppercase tracking-[0.2em] text-muted">
+          &copy;{new Date().getFullYear()} Carlovsk Studios
+        </p>
         <a
           href="#nav"
-          className="text-xs uppercase tracking-wider text-muted hover:text-foreground transition-colors"
+          className="text-[11px] uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors"
         >
           Go Back to Top
         </a>
       </div>
+
+      <p
+        aria-hidden
+        className="mt-12 text-center font-black uppercase leading-[0.85] tracking-[-0.04em] text-foreground/90 select-none translate-y-[25%]"
+        style={{ fontSize: "clamp(5rem, 22vw, 22rem)" }}
+      >
+        Carlovsk
+      </p>
     </footer>
   );
 }
