@@ -40,13 +40,18 @@ export default function Footer() {
         </a>
       </div>
 
-      <p
+      <div
         aria-hidden
-        className="mt-12 text-center font-black uppercase leading-[0.85] tracking-[-0.04em] text-foreground/90 select-none translate-y-[25%]"
-        style={{ fontSize: "clamp(5rem, 22vw, 22rem)" }}
+        className="mt-12 flex items-start justify-center overflow-hidden"
+        style={{ height: "calc(14vw * 0.75)" }}
       >
-        Carlovsk
-      </p>
+        <p
+          className="text-center font-black uppercase leading-[0.85] tracking-[-0.04em] text-foreground select-none whitespace-nowrap"
+          style={{ fontSize: "14vw" }}
+        >
+          Carlovsk
+        </p>
+      </div>
     </footer>
   );
 }
