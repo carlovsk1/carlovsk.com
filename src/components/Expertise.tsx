@@ -35,7 +35,7 @@ export default function Expertise() {
     <section ref={sectionRef} className="px-6 md:px-10 py-24 md:py-40">
       <h2
         className="mb-12 md:mb-16 font-black uppercase leading-[0.85] tracking-[-0.04em]"
-        style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
+        style={{ fontSize: "clamp(2.5rem, 10vw, 9rem)" }}
       >
         My
         <br />

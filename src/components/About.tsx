@@ -46,7 +46,7 @@ export default function About() {
       <div ref={headingRef}>
         <h2
           className="font-black uppercase leading-[0.85] tracking-[-0.04em]"
-          style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
+          style={{ fontSize: "clamp(2.5rem, 10vw, 9rem)" }}
         >
           More about
           <br />

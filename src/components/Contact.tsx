@@ -51,7 +51,7 @@ export default function Contact() {
       <div ref={headingRef} className="opacity-0">
         <h2
           className="font-black uppercase leading-[0.85] tracking-[-0.04em]"
-          style={{ fontSize: "clamp(4rem, 10vw, 9rem)" }}
+          style={{ fontSize: "clamp(2.5rem, 10vw, 9rem)" }}
         >
           Let&apos;s work
           <br />
