@@ -71,11 +71,11 @@ export default function Hero() {
         ref={metaRef}
         className="mt-10 md:mt-12 flex flex-col gap-2 border-t border-border pt-5 text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-muted opacity-0 md:flex-row md:items-center md:justify-between"
       >
-        <p>Based in BR, Porto Seguro BA</p>
+        <p>Based in Brazil</p>
         <p className="hidden md:block" aria-hidden>
           ●
         </p>
-        <p>Bubble Developer</p>
+        <p>Software Engineer</p>
       </div>
     </section>
   );

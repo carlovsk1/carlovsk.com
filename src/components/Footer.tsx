@@ -1,3 +1,5 @@
+import { scrollToTop } from "./SmoothScroll";
+
 export default function Footer() {
   return (
     <footer className="px-6 md:px-10 pt-10 md:pt-12 overflow-hidden">
@@ -32,12 +34,13 @@ export default function Footer() {
         <p className="text-[11px] uppercase tracking-[0.2em] text-muted">
           &copy;{new Date().getFullYear()} Carlovsk Studios
         </p>
-        <a
-          href="#nav"
-          className="text-[11px] uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors"
+        <button
+          type="button"
+          onClick={scrollToTop}
+          className="text-[11px] uppercase tracking-[0.2em] text-muted hover:text-foreground transition-colors md:self-auto self-start cursor-none"
         >
           Go Back to Top
-        </a>
+        </button>
       </div>
 
       <div

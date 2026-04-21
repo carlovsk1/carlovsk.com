@@ -28,11 +28,6 @@ body {
   color: var(--color-background);
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
 /* Lenis smooth scroll */
 html.lenis,
 html.lenis body {
