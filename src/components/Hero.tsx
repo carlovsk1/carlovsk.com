@@ -6,14 +6,14 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
+  const chipRef = useRef<HTMLDivElement>(null);
   const nameRef = useRef<HTMLHeadingElement>(null);
-  const locationRef = useRef<HTMLParagraphElement>(null);
-  const roleRef = useRef<HTMLParagraphElement>(null);
+  const metaRef = useRef<HTMLDivElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
     if (prefersReducedMotion) {
-      [nameRef, locationRef, roleRef].forEach((ref) => {
+      [chipRef, nameRef, metaRef].forEach((ref) => {
         if (ref.current) gsap.set(ref.current, { opacity: 1 });
       });
       return;
@@ -23,21 +23,21 @@ export default function Hero() {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" }, delay: 0.8 });
 
       tl.fromTo(
-        nameRef.current,
-        { y: 100, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1.2 }
+        chipRef.current,
+        { y: 20, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.6 }
       )
         .fromTo(
-          locationRef.current,
-          { y: 40, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 },
-          "-=0.5"
+          nameRef.current,
+          { y: 100, opacity: 0 },
+          { y: 0, opacity: 1, duration: 1.2 },
+          "-=0.3"
         )
         .fromTo(
-          roleRef.current,
-          { y: 30, opacity: 0 },
+          metaRef.current,
+          { y: 20, opacity: 0 },
           { y: 0, opacity: 1, duration: 0.6 },
-          "-=0.3"
+          "-=0.4"
         );
     }, sectionRef);
 
@@ -47,31 +47,35 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-screen flex-col justify-end px-6 pb-16 md:px-12 lg:px-20"
+      className="relative flex min-h-screen flex-col justify-center px-6 pt-32 pb-10 md:px-10"
     >
-      <h1
-        ref={nameRef}
-        className="text-[15vw] md:text-[12vw] font-bold lowercase leading-[0.85] tracking-tighter opacity-0"
-      >
-        carlovsk
-      </h1>
-
-      <div className="mt-6 flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-        <p
-          ref={locationRef}
-          className="text-xs uppercase tracking-widest text-muted opacity-0"
+      <div className="flex flex-col items-center justify-center flex-1">
+        <div
+          ref={chipRef}
+          className="mb-8 flex items-center gap-2 text-[11px] uppercase tracking-[0.25em] text-muted-strong opacity-0"
         >
-          Based in Brazil
-        </p>
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+          Available
+        </div>
 
-        <p ref={roleRef} className="opacity-0">
-          <a
-            href="#work"
-            className="text-sm font-medium underline underline-offset-4 decoration-muted hover:decoration-foreground transition-colors"
-          >
-            Software Engineer
-          </a>
+        <h1
+          ref={nameRef}
+          className="text-center font-black uppercase leading-[0.85] tracking-[-0.04em] opacity-0"
+          style={{ fontSize: "clamp(3rem, 15vw, 12rem)" }}
+        >
+          Carlovsk
+        </h1>
+      </div>
+
+      <div
+        ref={metaRef}
+        className="mt-10 md:mt-12 flex flex-col gap-2 border-t border-border pt-5 text-[10px] md:text-[11px] uppercase tracking-[0.2em] text-muted opacity-0 md:flex-row md:items-center md:justify-between"
+      >
+        <p>Based in Brazil</p>
+        <p className="hidden md:block" aria-hidden>
+          ●
         </p>
+        <p>Software Engineer</p>
       </div>
     </section>
   );
