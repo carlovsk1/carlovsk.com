@@ -7,10 +7,16 @@ import { useReducedMotion } from "@/lib/use-reduced-motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const PARAGRAPHS = [
+  "Most developers learn to code in a classroom. I learned by shipping things people paid for. At 12, editing videos. At 15, selling info-products online. Then three e-commerce stores \u2014 scaling, breaking, fixing, figuring out what actually makes someone click \u201Cbuy.\u201D Every project taught me the same lesson: ideas are cheap, execution is everything. That's what pulled me into Bubble \u2014 turning concepts into working products in days, not months. Today I build digital experiences with the same obsession: ship fast, learn faster, and cut every friction between an idea and a real user. I don't just write code. I build things people use.",
+];
+
 export default function About() {
   const sectionRef = useRef<HTMLElement>(null);
   const headingRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
+  const paragraphRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLAnchorElement>(null);
   const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
@@ -25,12 +31,33 @@ export default function About() {
         scrollTrigger: { trigger: headingRef.current, start: "top 80%" },
       });
 
-      gsap.from(textRef.current, {
-        y: 40,
+      const words =
+        paragraphRef.current?.querySelectorAll<HTMLSpanElement>("[data-word]");
+      if (words && words.length > 0) {
+        gsap.fromTo(
+          words,
+          { opacity: 0.15 },
+          {
+            opacity: 1,
+            ease: "none",
+            duration: 2,
+            stagger: 0.3,
+            scrollTrigger: {
+              trigger: paragraphRef.current,
+              start: "top 75%",
+              end: "bottom 40%",
+              scrub: 0.8,
+            },
+          }
+        );
+      }
+
+      gsap.from(buttonRef.current, {
+        y: 20,
         opacity: 0,
-        duration: 0.8,
+        duration: 0.6,
         ease: "power3.out",
-        scrollTrigger: { trigger: textRef.current, start: "top 80%" },
+        scrollTrigger: { trigger: buttonRef.current, start: "top 90%" },
       });
     }, sectionRef);
 
@@ -55,20 +82,27 @@ export default function About() {
       </div>
 
       <div ref={textRef} className="mt-16 flex flex-col items-center">
-        <p className="max-w-[55ch] text-base md:text-lg leading-relaxed text-muted-strong">
-          Carlos Henrique, professionally known as carlovsk, is a passionate
-          Bubble Developer with a strong background in building dynamic,
-          user-friendly web applications. Driven by innovation and efficiency,
-          carlovsk excels in turning complex ideas into simple, functional
-          digital solutions. He started his career at age 12 as a video editor,
-          ventured into digital marketing selling info-products, and
-          successfully managed three dropshipping e-commerce stores. A natural
-          entrepreneur, he constantly seeks to create valuable solutions for
-          others, leading him to discover and specialize in the NoCode platform
-          Bubble.
-        </p>
+        <div
+          ref={paragraphRef}
+          className="max-w-3xl text-2xl md:text-4xl leading-[1.25] text-foreground"
+        >
+          {PARAGRAPHS.map((paragraph, i) => {
+            const words = paragraph.split(" ");
+            return (
+              <p key={i}>
+                {words.map((word, j) => (
+                  <span key={j}>
+                    <span data-word>{word}</span>
+                    {j < words.length - 1 && " "}
+                  </span>
+                ))}
+              </p>
+            );
+          })}
+        </div>
 
         <a
+          ref={buttonRef}
           href="https://drive.google.com/file/d/1K9hDVy3nky5zg8f_GgjPVR1ZQOQgku55/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"

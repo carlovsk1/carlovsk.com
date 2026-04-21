@@ -154,9 +154,15 @@ export const expertise = [
 
 export const experience = [
   {
+    company: "RE Cost Seg",
+    role: "Senior Bubble Developer",
+    period: "2026 — Present",
+    description: "Cost Segregation software for real estate investors, built on Bubble with complex financial modeling and dynamic reporting features.",
+  },
+  {
     company: "arOS",
     role: "Senior Bubble Developer",
-    period: "2025 — Present",
+    period: "2025 — 2026",
     description:
       "Software that helps people sell more easily with simple marketing using professional AI agents.",
   },
@@ -180,13 +186,6 @@ export const experience = [
     period: "2021 — 2022",
     description:
       "Managed branding, catalogs, fulfillment and Meta/Google Ads—driving R$150K+ in annual revenue at a 12% conversion rate.",
-  },
-  {
-    company: "Self-employed",
-    role: "Infoproducer",
-    period: "2020 — 2021",
-    description:
-      "Produced video courses and interactive learning modules, leveraging no-code tools to streamline content delivery.",
   },
   {
     company: "Self-employed",
