@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Four wall tiles pointing inward: the diamond the pattern draws when the rotations line up. -->
+  <rect width="32" height="32" fill="#0B2B25"/>
+  <g clip-path="url(#mark)">
+    <rect width="16" height="32" fill="#F4EDE0"/>
+    <rect x="16" width="16" height="32" fill="#F5B841"/>
+  </g>
+  <defs>
+    <clipPath id="mark">
+      <path d="M18.12 4.12L27.88 13.88Q30 16 27.88 18.12L18.12 27.88Q16 30 13.88 27.88L4.12 18.12Q2 16 4.12 13.88L13.88 4.12Q16 2 18.12 4.12Z"/>
+    </clipPath>
+  </defs>
+</svg>
