@@ -1,0 +1,624 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calçadão — carlovsk.com prototype</title>
+</head>
+<body>
+<style>
+  :root {
+    /* Mata atlântica at dusk. Committed single-theme: this page paints its own world. */
+    --mata:      #0B2B25;
+    --mata-deep: #071C18;
+    --folha:     #123A31;
+    --folha-up:  #1A4B3F;
+    --caju:      #E85D2A;
+    --maracuja:  #F5B841;
+    --acai:      #4A2C6B;
+    --areia:     #F4EDE0;
+    --areia-dim: #A9B5AC;
+    --hairline:  rgba(244, 237, 224, 0.14);
+
+    --display: "Futura", "Avenir Next", "Century Gothic", "Trebuchet MS", system-ui, sans-serif;
+    --body: system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+    --gutter: clamp(1.25rem, 5vw, 5rem);
+    --maxw: 1440px;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--mata);
+    color: var(--areia);
+    font-family: var(--body);
+    font-size: 17px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  .wrap { max-width: var(--maxw); margin-inline: auto; padding-inline: var(--gutter); }
+
+  /* ---------- shared type ---------- */
+  .label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--areia-dim);
+  }
+  .display {
+    font-family: var(--display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    line-height: 0.94;
+    text-wrap: balance;
+    margin: 0;
+  }
+  .num { font-variant-numeric: tabular-nums; }
+
+  a { color: inherit; }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--maracuja);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  /* ---------- top bar ---------- */
+  .bar {
+    position: sticky; top: 0; z-index: 30;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem var(--gutter);
+    background: color-mix(in oklab, var(--mata) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .bar__mark { font-family: var(--display); font-size: 1.05rem; letter-spacing: 0.02em; text-decoration: none; }
+  .bar__nav { display: flex; gap: 1.5rem; }
+  .bar__nav a { text-decoration: none; }
+  .bar__nav a:hover { color: var(--maracuja); }
+  @media (max-width: 700px) { .bar__nav { display: none; } }
+
+  .live { display: inline-flex; align-items: center; gap: 0.5rem; }
+  .live::before {
+    content: ""; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--maracuja);
+    box-shadow: 0 0 0 0 color-mix(in oklab, var(--maracuja) 60%, transparent);
+    animation: pulse 2.4s ease-out infinite;
+  }
+  @keyframes pulse {
+    0%   { box-shadow: 0 0 0 0 color-mix(in oklab, var(--maracuja) 55%, transparent); }
+    70%  { box-shadow: 0 0 0 7px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+
+  /* ---------- hero ---------- */
+  .hero { position: relative; padding-top: clamp(3rem, 9vh, 7rem); }
+  .hero__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: end;
+  }
+  @media (min-width: 900px) { .hero__grid { grid-template-columns: 1.35fr 0.65fr; } }
+
+  .hero h1 { font-size: clamp(2.75rem, 8.5vw, 7.5rem); }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--maracuja);
+  }
+  .hero__thesis {
+    max-width: 34ch;
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    color: var(--areia-dim);
+    margin: 0;
+  }
+  .hero__thesis strong { color: var(--areia); font-weight: 500; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 3vw, 2.5rem);
+    margin-top: clamp(2.5rem, 6vh, 4.5rem);
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--hairline);
+  }
+  .stat__n {
+    font-family: var(--display);
+    font-size: clamp(1.9rem, 5vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat:nth-child(1) .stat__n { color: var(--caju); }
+  .stat:nth-child(2) .stat__n { color: var(--maracuja); }
+  .stat:nth-child(3) .stat__n { color: var(--areia); }
+  .stat__l { margin-top: 0.6rem; display: block; }
+
+  /* ---------- the signature: calçadão ---------- */
+  .calcadao {
+    position: relative;
+    margin-top: clamp(2rem, 6vh, 4rem);
+    height: clamp(220px, 34vh, 380px);
+  }
+  .calcadao canvas { display: block; width: 100%; height: 100%; }
+
+  /* One shoreline, cut into pieces. Each tide picks up the phase the
+     previous one left off, so scrolling reads as walking the same pavement. */
+  .tide { position: relative; height: clamp(90px, 13vh, 150px); }
+  .tide canvas { display: block; width: 100%; height: 100%; }
+  .tide + section { padding-top: clamp(2rem, 6vh, 4rem); }
+  .calcadao__note {
+    position: absolute; left: var(--gutter); bottom: 1rem;
+    max-width: 30ch;
+    color: var(--mata-deep);
+  }
+
+  /* ---------- sections ---------- */
+  section { padding-block: clamp(4rem, 12vh, 9rem); }
+  .sec__head {
+    display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between;
+    gap: 1rem 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: clamp(2rem, 5vh, 3.5rem);
+  }
+  .sec__head h2 { font-size: clamp(1.6rem, 3.4vw, 2.6rem); }
+
+  /* ---------- work ---------- */
+  .work { display: grid; gap: clamp(1rem, 2vw, 1.5rem); grid-template-columns: 1fr; }
+  @media (min-width: 800px) { .work { grid-template-columns: 1fr 1fr; } }
+
+  .card {
+    position: relative;
+    display: flex; flex-direction: column; justify-content: space-between;
+    gap: 3rem;
+    min-height: 300px;
+    padding: 1.5rem;
+    background: var(--folha);
+    border: 1px solid var(--hairline);
+    text-decoration: none;
+    overflow: hidden;
+    transition: background 220ms ease, transform 220ms ease;
+  }
+  .card:hover { background: var(--folha-up); transform: translateY(-3px); }
+  .card--lead { grid-column: 1 / -1; min-height: 380px; }
+  .card--lead .card__title { font-size: clamp(2rem, 5.5vw, 4rem); }
+
+  /* tile motif: Athos Bulcão modules, one rotated quarter-disc per cell */
+  .card__tiles {
+    position: absolute; inset: 0;
+    opacity: 0.16;
+    pointer-events: none;
+  }
+  .card__shot {
+    position: relative;
+    margin: -1.5rem -1.5rem 0;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--mata-deep);
+  }
+  .card__shot img {
+    display: block; width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform 700ms cubic-bezier(0.2, 0.7, 0.3, 1);
+  }
+  .card:hover .card__shot img { transform: scale(1.04); }
+  .card:not(.card--lead) { gap: 1.25rem; }
+  .card__body { position: relative; }
+  .card__title { font-family: var(--display); font-size: clamp(1.5rem, 3vw, 2.2rem); line-height: 1; margin: 0 0 0.5rem; }
+  .card__what { color: var(--areia-dim); margin: 0; max-width: 46ch; }
+  .card__foot { position: relative; display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; align-items: center; }
+
+  .pill {
+    font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+    padding: 0.3rem 0.6rem;
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    color: var(--areia);
+  }
+  .pill--hot { background: var(--caju); border-color: var(--caju); color: var(--mata-deep); font-weight: 600; }
+  .pill--users { color: var(--maracuja); border-color: color-mix(in oklab, var(--maracuja) 40%, transparent); }
+
+  /* ---------- about ---------- */
+  .about { display: grid; gap: clamp(2rem, 5vw, 4rem); grid-template-columns: 1fr; }
+  @media (min-width: 900px) { .about { grid-template-columns: 0.9fr 1.1fr; } }
+  .about p { margin: 0 0 1.25rem; max-width: 62ch; }
+  .about p:last-child { margin-bottom: 0; }
+  .about .lead { font-family: var(--display); font-size: clamp(1.35rem, 2.6vw, 2rem); line-height: 1.15; color: var(--areia); }
+  .about .lead b { color: var(--caju); font-weight: 500; }
+
+  /* ---------- experience ---------- */
+  .roles { display: grid; gap: 0; }
+  .role {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.25rem 2rem;
+    padding-block: 1.35rem;
+    border-bottom: 1px solid var(--hairline);
+  }
+  @media (min-width: 800px) {
+    .role { grid-template-columns: 15rem 1fr auto; align-items: baseline; }
+  }
+  .role__when { font-family: var(--mono); font-size: 12px; color: var(--areia-dim); letter-spacing: 0.04em; }
+  .role__who { font-family: var(--display); font-size: 1.2rem; }
+  .role__what { color: var(--areia-dim); max-width: 60ch; }
+  .role:hover .role__who { color: var(--maracuja); }
+
+  /* ---------- contact ---------- */
+  .contact { background: var(--areia); color: var(--mata-deep); }
+  .contact .wrap { padding-block: clamp(4rem, 12vh, 8rem); }
+  .contact .label { color: color-mix(in oklab, var(--mata-deep) 55%, transparent); }
+  .contact h2 { font-size: clamp(1.9rem, 7vw, 5.5rem); word-break: break-word; }
+  .contact a.big { text-decoration: none; display: inline-block; }
+  .contact a.big:hover { color: var(--caju); }
+  .links { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid color-mix(in oklab, var(--mata-deep) 18%, transparent); }
+  .links a:hover { color: var(--caju); }
+
+  footer { padding: 2rem var(--gutter); display: flex; flex-wrap: wrap; gap: 1rem; justify-content: space-between; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+</style>
+
+<header class="bar">
+  <a class="bar__mark" href="#top">carlovsk</a>
+  <nav class="bar__nav label" aria-label="Sections">
+    <a href="#work">Work</a>
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+  </nav>
+  <span class="label live">Open to remote roles</span>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero__grid">
+        <h1 class="display">I turn ideas into <em>shipped products.</em></h1>
+        <p class="hero__thesis">
+          Software engineer in Brazil. <strong>Code is the cheap part now.</strong>
+          Deciding what to build, and refusing the states it must never reach, is the job.
+        </p>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span class="stat__n num">30,000</span>
+          <span class="stat__l label">Users reached</span>
+        </div>
+        <div class="stat">
+          <span class="stat__n num">15+</span>
+          <span class="stat__l label">Products shipped</span>
+        </div>
+        <div class="stat">
+          <span class="stat__n num">400k</span>
+          <span class="stat__l label">Lines, last 4 months</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="calcadao">
+      <canvas id="calcadao" aria-hidden="true"></canvas>
+      <p class="calcadao__note label">Calçadão de Copacabana, Burle Marx, 1970. Drawn in code, not imported.</p>
+    </div>
+  </section>
+
+  <section id="work">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 class="display">Selected work</h2>
+        <p class="label">Seven years shipping · no-code roots, high-code today</p>
+      </div>
+
+      <div class="work">
+        <a class="card card--lead" href="#">
+          <canvas class="card__tiles" aria-hidden="true"></canvas>
+          <div class="card__body">
+            <h3 class="card__title display">R.E. Cost Seg</h3>
+            <p class="card__what">
+              Cost-segregation SaaS for real-estate investors, rebuilt from Bubble into real code.
+              Self-checkout with Stripe, client intake, and an in-app workflow engine that replaced
+              the no-code automations behind it.
+            </p>
+          </div>
+          <div class="card__foot">
+            <span class="pill pill--hot">High-code</span>
+            <span class="pill">Next.js</span>
+            <span class="pill">React</span>
+            <span class="pill">Supabase</span>
+            <span class="pill">Stripe</span>
+            <span class="label" style="margin-left:auto">2026</span>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <div class="card__shot"><img src="../public/images/projects/aros.webp" alt="arOS marketing OS interface"></div>
+          <div class="card__body">
+            <h3 class="card__title display">arOS</h3>
+            <p class="card__what">Multi-agent marketing OS. I built the agent core that plans, writes and ships campaigns.</p>
+          </div>
+          <div class="card__foot">
+            <span class="pill pill--users">30,000 users</span>
+            <span class="pill">Bubble</span>
+            <span class="pill">Supabase</span>
+            <span class="label" style="margin-left:auto">2025</span>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <div class="card__shot"><img src="../public/images/projects/fixaai.png" alt="FixaAi flashcard app"></div>
+          <div class="card__body">
+            <h3 class="card__title display">FixaAí</h3>
+            <p class="card__what">Founded it. AI flashcards with a spaced-repetition engine, shipped with OpenAI in 2024.</p>
+          </div>
+          <div class="card__foot">
+            <span class="pill pill--users">1,000 users</span>
+            <span class="pill">Founder</span>
+            <span class="pill">OpenAI</span>
+            <span class="label" style="margin-left:auto">2024</span>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <div class="card__shot"><img src="../public/images/projects/hello-maia.png" alt="Hello Maia agent builder"></div>
+          <div class="card__body">
+            <h3 class="card__title display">Hello Maia</h3>
+            <p class="card__what">Non-technical teams build their own AI assistants, then watch and override them live.</p>
+          </div>
+          <div class="card__foot">
+            <span class="pill">Bubble</span>
+            <span class="pill">Supabase</span>
+            <span class="pill">n8n</span>
+            <span class="label" style="margin-left:auto">2025</span>
+          </div>
+        </a>
+
+        <a class="card" href="#">
+          <div class="card__shot"><img src="../public/images/projects/eu-na-europa.png" alt="Eu Na Europa citizenship portal"></div>
+          <div class="card__body">
+            <h3 class="card__title display">Eu Na Europa</h3>
+            <p class="card__what">A decade-long citizenship process as one portal: live family tree, documents, caseworkers, payments.</p>
+          </div>
+          <div class="card__foot">
+            <span class="pill">Bubble</span>
+            <span class="pill">Supabase</span>
+            <span class="label" style="margin-left:auto">2024</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="tide" data-bands="#E85D2A,#0B2B25,#E85D2A" data-seq="1"><canvas aria-hidden="true"></canvas></div>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 class="display">How I got here</h2>
+        <p class="label">Salvador → Brasília → wherever the work is</p>
+      </div>
+      <div class="about">
+        <p class="lead">
+          Most developers learn to code in a classroom. <b>I learned by shipping things people paid for.</b>
+        </p>
+        <div>
+          <p>
+            At 15 I opened the Shopify editor to fix one thing on my dropshipping store and didn't close it
+            for years. Something always felt off: the checkout, the layout, the way a product page either
+            pulled you toward buy or lost you. That's how I learned to code, chasing an experience that
+            wasn't good enough yet.
+          </p>
+          <p>
+            Then three stores, R$150K a year, and every month landing back at break-even. Then a product I
+            founded to a thousand users. Then Bubble, professionally, for two years, because it got ideas
+            live in days instead of months.
+          </p>
+          <p>
+            Today it's Next.js, React, TypeScript and Supabase, and the lesson never changed: I never fell
+            in love with code. I fell in love with the experience, and code is just how I shape it.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tide" data-bands="#F5B841,#0B2B25,#F5B841" data-seq="2"><canvas aria-hidden="true"></canvas></div>
+
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec__head">
+        <h2 class="display">Experience</h2>
+        <p class="label">Full history on LinkedIn</p>
+      </div>
+      <div class="roles">
+        <div class="role">
+          <span class="role__when">Dec 2025 → now</span>
+          <span class="role__who display">R.E. Cost Seg · Software Engineer</span>
+          <span class="role__what">Rebuilding the product from Bubble into Next.js, React and Supabase.</span>
+        </div>
+        <div class="role">
+          <span class="role__when">Aug → Dec 2025</span>
+          <span class="role__who display">arOS · Senior Developer</span>
+          <span class="role__what">Built the multi-agent core of a marketing OS now used by 30,000 people.</span>
+        </div>
+        <div class="role">
+          <span class="role__when">Aug 2024 → Jul 2025</span>
+          <span class="role__who display">Hamurabi Apps · Developer</span>
+          <span class="role__what">15+ customer-facing apps. Multi-gateway payments with Stripe and Pix.</span>
+        </div>
+        <div class="role">
+          <span class="role__when">Dec 2023 → Aug 2024</span>
+          <span class="role__who display">FixaAí · Founder</span>
+          <span class="role__what">AI flashcards to 1,000 users. Built it, priced it, sold it.</span>
+        </div>
+        <div class="role">
+          <span class="role__when">2020 → 2023</span>
+          <span class="role__who display">Self-employed · E-commerce</span>
+          <span class="role__what">Three Shopify stores, R$150K+ a year at 12% conversion.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tide" data-bands="#F4EDE0,#F5B841,#F4EDE0" data-seq="3" data-fill="#F4EDE0"><canvas aria-hidden="true"></canvas></div>
+
+  <section class="contact">
+    <div class="wrap">
+      <p class="label">Let's talk</p>
+      <h2 class="display"><a class="big" href="#">carlovsk.edits@gmail.com</a></h2>
+      <div class="links label">
+        <a href="#">LinkedIn</a>
+        <a href="#">GitHub</a>
+        <a href="#">Résumé</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="label">
+  <span>© 2026 Carlos Gonçalves</span>
+  <span>Built in Brazil</span>
+</footer>
+
+<script>
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------------------------------------------------
+     Calçadão: Burle Marx's Avenida Atlântica wave, in fruit.
+     One engine. The hero gets the full pavement; each tide between
+     sections is the same shoreline further along, so the page reads
+     as a single walk from forest dark down to sand.
+  --------------------------------------------------------- */
+  (function () {
+    let scrollPhase = 0;
+    const pieces = [];
+
+    function band(ctx, w, h, yBase, amp, phase, freq) {
+      ctx.beginPath();
+      ctx.moveTo(0, h);
+      ctx.lineTo(0, yBase);
+      for (let x = 0; x <= w; x += 6) {
+        const y = yBase
+          + Math.sin(x * freq + phase) * amp
+          + Math.sin(x * freq * 0.42 + phase * 1.7) * amp * 0.35;
+        ctx.lineTo(x, y);
+      }
+      ctx.lineTo(w, h);
+      ctx.closePath();
+      ctx.fill();
+    }
+
+    function make(cv, opts) {
+      const ctx = cv.getContext("2d");
+      const piece = { cv, ctx, w: 0, h: 0, ...opts };
+
+      piece.size = function () {
+        const r = cv.getBoundingClientRect();
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        piece.w = r.width; piece.h = r.height;
+        cv.width = r.width * dpr; cv.height = r.height * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      };
+
+      piece.draw = function () {
+        const { w, h, bands, heights, seq, fill } = piece;
+        ctx.clearRect(0, 0, w, h);
+        if (fill) { ctx.fillStyle = fill; ctx.fillRect(0, 0, w, h * 0.02); }
+        const amp = h * piece.ampRatio;
+        let y = h * piece.startRatio;
+        bands.forEach((color, i) => {
+          ctx.fillStyle = color;
+          // seq offsets the phase so consecutive tides continue the same shoreline
+          band(ctx, w, h, y, amp, scrollPhase * (0.6 + i * 0.12) + i * 1.15 + seq * 2.4, 0.0052 + i * 0.0007);
+          y += h * (heights[i] || 0.2);
+        });
+      };
+
+      piece.size();
+      pieces.push(piece);
+      return piece;
+    }
+
+    make(document.getElementById("calcadao"), {
+      bands: ["#F4EDE0", "#E85D2A", "#F4EDE0", "#F5B841", "#F4EDE0"],
+      heights: [0.30, 0.16, 0.22, 0.13, 0.19],
+      ampRatio: 0.10, startRatio: 0.12, seq: 0
+    });
+
+    document.querySelectorAll(".tide").forEach((el) => {
+      make(el.querySelector("canvas"), {
+        bands: el.dataset.bands.split(","),
+        heights: [0.34, 0.30, 0.34],
+        ampRatio: 0.17,
+        startRatio: 0.20,
+        seq: Number(el.dataset.seq),
+        fill: el.dataset.fill
+      });
+    });
+
+    function render() { pieces.forEach((p) => p.draw()); }
+
+    // Scroll advances the shoreline: the walk is yours, not an idle loop.
+    let ticking = false;
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        scrollPhase = window.scrollY * 0.0024;
+        render();
+        ticking = false;
+      });
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", () => { pieces.forEach((p) => p.size()); render(); });
+
+    if (!reduce) {
+      (function drift() { scrollPhase += 0.0016; render(); requestAnimationFrame(drift); })();
+    } else {
+      render();
+    }
+  })();
+
+  /* ---------------------------------------------------------
+     Athos Bulcão tiles: one module, four rotations, no repeat.
+     Brasília's panels were assembled the same way, by hand.
+  --------------------------------------------------------- */
+  document.querySelectorAll(".card__tiles").forEach((cv) => {
+    const ctx = cv.getContext("2d");
+    const cell = 44;
+    function paint() {
+      const r = cv.getBoundingClientRect();
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      cv.width = r.width * dpr; cv.height = r.height * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.clearRect(0, 0, r.width, r.height);
+      ctx.fillStyle = "#F4EDE0";
+      for (let x = 0; x < r.width; x += cell) {
+        for (let y = 0; y < r.height; y += cell) {
+          const turn = Math.floor(Math.random() * 4);
+          ctx.save();
+          ctx.translate(x + cell / 2, y + cell / 2);
+          ctx.rotate((turn * Math.PI) / 2);
+          ctx.beginPath();
+          ctx.moveTo(-cell / 2, -cell / 2);
+          ctx.arc(-cell / 2, -cell / 2, cell, 0, Math.PI / 2);
+          ctx.closePath();
+          ctx.fill();
+          ctx.restore();
+        }
+      }
+    }
+    paint();
+    window.addEventListener("resize", paint);
+  });
+</script>
+
+</body>
+</html>

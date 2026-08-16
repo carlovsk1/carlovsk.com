@@ -23,6 +23,7 @@
 # misc
 .DS_Store
 *.pem
+status-cache.json
 
 # debug
 npm-debug.log*
