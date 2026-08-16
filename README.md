@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# carlovsk.com
 
-## Getting Started
+My portfolio, live at **[carlovsk.com](https://carlovsk.com)**.
 
-First, run the development server:
+Next.js 16, React 19, TypeScript, Tailwind v4. Three runtime dependencies: `next`, `react`,
+`react-dom`. No framer-motion, no GSAP, no three.js, no Lottie. That is the point.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## The graphics are hand-written canvas
+
+The visual language is Brazilian modernism. Two pieces of it are drawn per frame in
+`CanvasRenderingContext2D`, not imported:
+
+- **The wall** (`WallHero`, `StoryWall`) is a grid of half-square tiles in the Athos Bulcão
+  tradition. `StoryWall` carries a color mix per era, so the wall changes palette as the
+  timeline moves from 2020 to now.
+- **The tides** (`WaveBand`) are the Burle Marx sidewalk curve, redrawn on every frame with a
+  phase offset so no two bands are in step.
+
+Both renderers do the boring parts properly, because that is what makes them feel fast:
+
+- `prefers-reduced-motion` cuts animation to 15% instead of killing it.
+- An `IntersectionObserver` stops the RAF loop when the canvas is off screen.
+- A `ResizeObserver` plus a DPR-capped backing store keeps it sharp without paying for 3x
+  pixels on a 3x display.
+
+## The palette is the design system
+
+`src/lib/palette.ts` is the only place a color exists, and every value carries the contrast
+ratio it was measured at:
+
+```ts
+/** Reads on the sand ground and behind sand text (5.07:1 both ways). */
+blue: "#2762BC",
+/** The same hue lifted for small text on the dark greens, where `blue` only reaches 3:1. */
+blueInk: "#7FB0F2",
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Blue is the one accent that cannot be both a tile fill and body text, so anything drawing an
+accent as text on a dark ground routes through `onDark()`. Nothing in `INK` is a decorative
+guess either: each opacity is the lowest one that still clears 4.5:1 on both dark grounds.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Run it
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+```
 
-## Learn More
+Then open <http://localhost:3000>.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/         layout, page, opengraph-image, twitter-image
+src/components/  one file per section of the page
+src/lib/         palette.ts, the single source of color
+```
