@@ -1,22 +1,34 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Archivo, Archivo_Black, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const inter = Inter({
-  variable: "--font-inter",
+const archivo = Archivo({
+  variable: "--font-archivo",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  weight: ["400", "500", "600"],
+});
+
+const archivoBlack = Archivo_Black({
+  variable: "--font-archivo-black",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
-  title: "CARLOVSK - PORTFOLIO",
+  title: "CARLOVSK · Software Engineer",
   description:
-    "Senior Bubble Developer Carlos Henrique (aka carlovsk) crafts AI-powered SaaS, Supabase back-ends, Stripe integrations & PropTech solutions. Explore his portfolio.",
+    "Carlos Gonçalves (carlovsk), software engineer from Brazil. He never fell in love with code. He fell in love with the experience. Code is how he shapes it.",
   metadataBase: new URL("https://carlovsk.com"),
   openGraph: {
-    title: "CARLOVSK - PORTFOLIO",
+    title: "CARLOVSK · Software Engineer",
     description:
-      "Senior Bubble Developer Carlos Henrique (aka carlovsk) crafts AI-powered SaaS, Supabase back-ends, Stripe integrations & PropTech solutions. Explore his portfolio.",
+      "Carlos Gonçalves (carlovsk), software engineer from Brazil. He never fell in love with code. He fell in love with the experience. Code is how he shapes it.",
     url: "https://carlovsk.com",
     siteName: "carlovsk",
     locale: "en_US",
@@ -24,10 +36,14 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "CARLOVSK - PORTFOLIO",
+    title: "CARLOVSK · Software Engineer",
     description:
-      "Senior Bubble Developer Carlos Henrique (aka carlovsk) crafts AI-powered SaaS, Supabase back-ends, Stripe integrations & PropTech solutions. Explore his portfolio.",
+      "Carlos Gonçalves (carlovsk), software engineer from Brazil. He never fell in love with code. He fell in love with the experience. Code is how he shapes it.",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0B2B25",
 };
 
 export default function RootLayout({
@@ -36,7 +52,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html
+      lang="en"
+      className={`${archivo.variable} ${archivoBlack.variable} ${plexMono.variable} antialiased`}
+    >
       <body>{children}</body>
     </html>
   );

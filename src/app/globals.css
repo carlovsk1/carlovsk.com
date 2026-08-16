@@ -1,49 +1,10 @@
 @import "tailwindcss";
 
-@theme inline {
-  --color-background: #0a0a0a;
-  --color-foreground: #ebe6df;
-  --color-muted: #6b6b6b;
-  --color-muted-strong: #a8a39c;
-  --color-accent: #9ae66e;
-  --color-border: #1f1f1f;
-  --color-surface: #111111;
-  --font-sans: var(--font-inter);
-}
-
-html {
-  scroll-behavior: auto;
-}
-
 body {
-  background: var(--color-background);
-  color: var(--color-foreground);
-  font-family: var(--font-sans), system-ui, sans-serif;
+  background: #0b2b25;
+  color: #f4ede0;
+  font-family: var(--font-archivo), system-ui, sans-serif;
   overflow-x: hidden;
-  cursor: none;
-}
-
-::selection {
-  background: var(--color-accent);
-  color: var(--color-background);
-}
-
-/* Lenis smooth scroll */
-html.lenis,
-html.lenis body {
-  height: auto;
-}
-
-.lenis.lenis-smooth {
-  scroll-behavior: auto !important;
-}
-
-.lenis.lenis-smooth [data-lenis-prevent] {
-  overscroll-behavior: contain;
-}
-
-.lenis.lenis-stopped {
-  overflow: hidden;
 }
 
 /* Respect reduced motion preference */
@@ -54,9 +15,401 @@ html.lenis body {
   }
 }
 
-/* Hide cursor on mobile */
-@media (pointer: coarse) {
-  body {
-    cursor: auto;
+/* Exposed to assistive tech, never painted. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.athos-skip {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  transform: translateY(-200%);
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #f4ede0;
+  color: #0b2b25 !important;
+  font-family: var(--font-plex-mono), monospace;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+}
+
+.athos-skip:focus {
+  transform: none;
+}
+
+/* Athos Bulcão homepage */
+.athos a {
+  color: #f5b841;
+  text-decoration: none;
+}
+
+.athos a:hover {
+  color: #f4ede0;
+}
+
+.athos ::selection {
+  background: #f5b841;
+  color: #0b2b25;
+}
+
+.athos-footer a {
+  color: #2762bc;
+}
+
+.athos-footer a:hover {
+  color: #0b2b25;
+}
+
+/* Primary action. The page ends on the highest-intent moment, so it gets weight, not a text link. */
+.athos-footer a.athos-cta {
+  background: #0b2b25;
+  color: #f4ede0;
+  transition:
+    background 0.24s ease,
+    transform 0.24s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.athos-footer a.athos-cta:hover,
+.athos-footer a.athos-cta:focus-visible {
+  background: #2762bc;
+  color: #f4ede0;
+  transform: translateY(-2px);
+}
+
+.athos a:focus-visible,
+.athos-footer a:focus-visible,
+.athos button:focus-visible {
+  outline: 2px solid #f5b841;
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+/* Section rail: one tile per section, mirrors the mural's vocabulary instead of a navbar */
+.athos-rail {
+  position: fixed;
+  top: 50%;
+  right: clamp(12px, 1.6vw, 26px);
+  z-index: 40;
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  transform: translateY(-50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.athos-rail[data-visible="true"] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.athos-rail button {
+  display: block;
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  border: 0;
+  border-radius: 3px;
+  background: rgba(244, 237, 224, 0.28);
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.athos-rail button:hover {
+  background: rgba(244, 237, 224, 0.6);
+}
+
+.athos-rail button[aria-current="true"] {
+  background: #f5b841;
+  transform: rotate(90deg) scale(1.25);
+}
+
+/* The rail sits over the sand sections too, so it needs the inverse treatment there. */
+.athos-rail[data-ground="light"] button {
+  background: rgba(11, 43, 37, 0.3);
+}
+
+.athos-rail[data-ground="light"] button:hover {
+  background: rgba(11, 43, 37, 0.62);
+}
+
+.athos-rail[data-ground="light"] button[aria-current="true"] {
+  background: #2762bc;
+}
+
+@media (max-width: 700px) {
+  .athos-rail {
+    display: none;
+  }
+}
+
+/* Timeline: five full labels overrun a phone and collide, so narrow screens get the years only */
+.athos-tl-short {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .athos-tl-full {
+    display: none;
+  }
+  .athos-tl-short {
+    display: inline;
+  }
+}
+
+/* Developer-tools list: rows share the 2px grid seam used by the stats bento */
+.athos-proof {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+  background: rgba(244, 237, 224, 0.16);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.athos-proof-row {
+  background: #123a31;
+  display: grid;
+  grid-template-columns: 14px minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 14px 24px;
+  padding: clamp(22px, 2.6vw, 34px);
+  transition: background 0.28s ease;
+}
+
+.athos-proof-mark {
+  width: 14px;
+  height: 14px;
+  border-radius: 3px;
+  margin-top: 0.42em;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Title and body share column 2 so the copy runs the full row width; the chip holds column 3. */
+.athos-proof-body {
+  grid-column: 2;
+  min-width: 0;
+}
+
+.athos-proof-chip {
+  grid-column: 3;
+  grid-row: 1;
+  margin-top: 0.2em;
+}
+
+@media (max-width: 620px) {
+  .athos-proof-row {
+    grid-template-columns: 14px minmax(0, 1fr);
+  }
+  .athos-proof-chip {
+    grid-column: 2;
+    grid-row: auto;
+    margin-top: 0;
+    justify-self: start;
+  }
+}
+
+a.athos-proof-row {
+  color: inherit;
+}
+
+a.athos-proof-row:hover,
+a.athos-proof-row:focus-visible {
+  background: #16463a;
+  color: inherit;
+  outline-offset: -3px;
+}
+
+a.athos-proof-row:hover .athos-proof-mark,
+a.athos-proof-row:focus-visible .athos-proof-mark {
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .athos-proof-mark {
+    transition: none;
+  }
+}
+
+/* Expandable product shots */
+.athos-shot-trigger {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  border-radius: 14px;
+}
+
+.athos-shot-trigger:focus-visible {
+  outline: 2px solid #f5b841;
+  outline-offset: 4px;
+}
+
+.athos-lightbox {
+  /* Tailwind's preflight zeroes margin on *, which kills the `margin: auto` the user agent uses
+     to centre a modal dialog. Put it back. */
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  max-width: none;
+  max-height: none;
+  overflow: visible;
+  color: #f4ede0;
+}
+
+.athos-lightbox::backdrop {
+  background: rgba(11, 43, 37, 0.94);
+}
+
+/* Min sizes keep the close button in its corner during the moment before the image paints. */
+.athos-lightbox-inner {
+  position: relative;
+  display: block;
+  min-width: min(60vw, 420px);
+  min-height: min(38vh, 260px);
+}
+
+.athos-lightbox img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 92vw;
+  max-height: 86vh;
+  border-radius: 14px;
+  outline: 1px solid rgba(244, 237, 224, 0.2);
+}
+
+.athos-lightbox-close {
+  position: absolute;
+  top: -14px;
+  right: -14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: #f4ede0;
+  color: #0b2b25;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.athos-lightbox-close:hover {
+  transform: scale(1.08);
+}
+
+.athos-lightbox-close:focus-visible {
+  outline: 2px solid #f5b841;
+  outline-offset: 3px;
+}
+
+/* The dialog sits in the top layer, but the page behind it still scrolls without this. */
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .athos-lightbox[open] {
+    animation: lightboxIn 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .athos-lightbox[open]::backdrop {
+    animation: backdropIn 0.22s ease;
+  }
+}
+
+@keyframes lightboxIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+}
+
+@keyframes backdropIn {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes wordRise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.42em, 0) rotate(-1.2deg);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+/* Stats bento: container queries mirror the design's width thresholds */
+.athos-stats-wrap {
+  container-type: inline-size;
+}
+
+.athos-stats {
+  margin-top: 2px;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  /* Card 01 spans two of these. At 200px it opened a screen-height void above the big number
+     while every sibling stayed compact, which read as a broken grid rather than as breathing. */
+  grid-auto-rows: minmax(clamp(148px, 13.5vw, 176px), auto);
+  gap: 2px;
+  background: rgba(244, 237, 224, 0.16);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+@container (min-width: 560px) {
+  .athos-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .athos-stats > :nth-child(1),
+  .athos-stats > :nth-child(6) {
+    grid-column: span 2;
+  }
+}
+
+@container (min-width: 940px) {
+  .athos-stats {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .athos-stats > :nth-child(1) {
+    grid-column: span 4;
+    grid-row: span 2;
+  }
+  .athos-stats > :nth-child(2),
+  .athos-stats > :nth-child(3) {
+    grid-column: span 2;
+  }
+  .athos-stats > :nth-child(4),
+  .athos-stats > :nth-child(5) {
+    grid-column: span 3;
+  }
+  .athos-stats > :nth-child(6) {
+    grid-column: span 6;
   }
 }
