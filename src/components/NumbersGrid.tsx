@@ -83,7 +83,7 @@ const STATS: Stat[] = [
     outerGap: "clamp(22px,2.6vw,36px)",
     label: "merged in his busiest week, 20 of them in a single day",
     labelMax: "36ch",
-    call: "Two engineers. Every one merged because a human decided it should exist.",
+    call: "Two engineers then, four now. Every one merged because a human decided it should exist.",
     callSize: "clamp(15px,1.25vw,18px)",
     callMax: "38ch",
   },
